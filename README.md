@@ -74,3 +74,7 @@ options:
 <li>Argument such as --verbose may be provided to allow user to have the printed outputs or not</li>
 <li>Percentage completion bar to depict the overall progess may be provided</li>
 </ul>
+
+### Documentation available at
+
+[Documentation in HTML](https://hemantjoon.github.io/ssc_tesseract.html)
