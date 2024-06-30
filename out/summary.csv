@@ -1,0 +1,3 @@
+,file_path,is_image,gray_file_path,text_in,is_text_captured,translated_in,is_translation_success
+0,/home/hemant/Downloads/sample_python_script/img2.jpg,yes,/home/hemant/Downloads/sample_python_script/out/img2/gray_img2.jpg,eng,yes,de,yes
+1,/home/hemant/Downloads/sample_python_script/im1.jpg,yes,/home/hemant/Downloads/sample_python_script/out/im1/gray_im1.jpg,eng,yes,de,yes
