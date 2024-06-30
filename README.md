@@ -33,14 +33,7 @@ options:
 ```
 
 ### Example
-<img src="images/im1.jpg" alt="input_image" width="200"/>
-<p> Input Image </p>
-&#8595;
-<img src="out/im1/gray_im1.jpg" alt="gray_image" width="200"/>
-<p> Gray Image generated</p>
-&#8595;
-<img src="etc/screenshot.png" alt="text_captured" width="200"/>
-<p> Text captured using tesseract </p>
+![Example](etc/example.png "Workflow")
 
 ### Major changes
 <ul>
