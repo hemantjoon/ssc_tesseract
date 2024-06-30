@@ -34,11 +34,20 @@ options:
 
 ### Example
 <div style="display:flex; align-items: center;">
-<img src="images/im1.jpg" alt="drawing" width="200"/>
+<div>
+<img src="images/im1.jpg" alt="input_image" width="200"/>
+<p> Input Image </p>
+</div>
 &rarr;
-<img src="out/im1/gray_im1.jpg" alt="drawing" width="200"/>
+<div>
+<img src="out/im1/gray_im1.jpg" alt="gray_image" width="200"/>
+<p> Gray Image generated</p>
+</div>
 &rarr;
-<img src="etc/screenshot.png" alt="drawing" width="200"/>
+<div>
+<img src="etc/screenshot.png" alt="text_captured" width="200"/>
+<p> Text captured using tesseract </p>
+</div>
 </div>
 
 ### Major changes
