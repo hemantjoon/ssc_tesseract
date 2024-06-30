@@ -1,14 +1,7 @@
-# correcting the comments
-# import wand.image import Image to only Image
-# removing the paranthesis from GoogleTranslator
-# String interpolation
-# updated rsplit to obtain the filename [0]
-# update filenam to filename
-# updated variable item to use filename
-# commenting out options variable as not being used in the script
-# changing list with img_list and item to photo
-# filenam to filename_original
-# name to filename_gray
+# removed translated to str(translated) since output is of class str only
+# adding f.close() to close the opened files and img.close()
+# appened the args - lang and psm in the pytesseract function
+
 
 # Importing libraries
 import pytesseract
@@ -29,7 +22,7 @@ for photo in img_list:
     filename_original = photo.rsplit(".",1)[0]
     filename_gray = "gray_" + photo
     text_en = "gray_"+filename_original+".txt"
-    text_trans = "gray_translated_"+filename_original+".txt"
+    text_translated = "gray_translated_"+filename_original+".txt"
 
     # Transform image from color to grayscale
     with Image(filename=photo) as img:
@@ -45,19 +38,25 @@ for photo in img_list:
         ap.add_argument("-t", "--to", type=str, default="en", help="eng")
         ap.add_argument("-p", "--psm", type=int, default=13, help="Tesseract PSM mode")
         args = vars(ap.parse_args())
+        args["psm"] = "--psm "+str(args["psm"])
 
     # Set-up columns
         # options = "-l {} --psm {}".format(args["lang"], args["psm"])
 
     # Extract the text 
-        text = pytesseract.image_to_string(filename_gray)
+        text = pytesseract.image_to_string(filename_gray, lang=args["lang"], config=args["psm"])
 
     # Write-up original text
-        outfile = open(text_en, "w", encoding="utf-8")
-        outfile.write(text)
+        with open(text_en, "w", encoding="utf-8") as outfile:
+            outfile.write(text)
+            outfile.close()
+            # outfile = open(text_en, "w", encoding="utf-8")
+            # outfile.write(text)
 
     # Write-up translated text
-        translated=GoogleTranslator(source="auto", target=args["to"]).translate(text)    
-        trans=str(translated)
-        with open(text_trans, "w", encoding="utf-8") as f:
-            f.write(trans)
+        translated=GoogleTranslator(source="auto", target=args["to"]).translate(text)   
+        # print(type(translated)) 
+        # translated=str(translated)
+        with open(text_translated, "w", encoding="utf-8") as outfile_translated:
+            outfile_translated.write(translated)
+            outfile_translated.close()
