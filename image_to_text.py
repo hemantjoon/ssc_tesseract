@@ -95,7 +95,7 @@ def my_iterator(args):
 
 
     summary_df.to_csv(args["output"]+"/summary.csv")
-    print('\nHurray!!! finally completed\n')
+    print('\nCompleted\n')
 
 # Creating main output folder
 def out_folder(args):
