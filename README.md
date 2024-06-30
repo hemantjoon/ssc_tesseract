@@ -32,6 +32,14 @@ options:
                         Output folder path (default: /home/user/Downloads/ssc_tesseract)
 ```
 
+### Example
+<div style="display:flex; align-items: center;">
+<img src="images/im1.jpg" alt="drawing" width="200"/>
+&rarr;
+<img src="out/im1/gray_im1.jpg" alt="drawing" width="200"/>
+&rarr;
+<img src="etc/screenshot.png" alt="drawing" width="200"/>
+</div>
 
 ### Major changes
 <ul>
