@@ -1,7 +1,4 @@
-# output folder argument optional or make out
-# create output folder if not there
-# output folder with individual folder if more than 1
-# tabular results
+# commenting and removing extra lines
 
 
 # Importing libraries
@@ -14,8 +11,8 @@ import pandas as pd
 
 pytesseract.tesseract_cmd = r"tesseract"
 
+# Transform image from color to grayscale
 def img_to_gray(img_name, img_name_gray, output_folder):
-    # Transform image from color to grayscale
     try:
         with Image(filename=img_name) as img:
             os.makedirs(output_folder)
@@ -27,45 +24,41 @@ def img_to_gray(img_name, img_name_gray, output_folder):
     except:
             return False
     
+# Write-up translated text
 def google_translate(text, text_translated, args):
-    # Write-up translated text
     translated=GoogleTranslator(source="auto", target=args["to"]).translate(text)
-    # translated = str(translated)
     if(translated is not None and len(translated.strip()) != 0):
         with open(text_translated, "w", encoding="utf-8") as outfile_translated:
             outfile_translated.write(translated)
             outfile_translated.close()
         return True
-        # print(f"Writing translation {img_name}")
     else:
         return False
-        # print(f"No translation found {img_name}")
 
 
 def my_iterator(args):
     summary_df = pd.DataFrame(columns=["file_path","is_image","gray_file_path","text_in","is_text_captured","translated_in","is_translation_success"])
     for img_name in args["image"]:
-        # break
         # Declaring variables
         img_name_base = img_name.rsplit(".",1)[0]
-
         output_folder = args["output"] + "/" + img_name_base
-        # os.makedirs(output_folder)
-
         img_name_gray = output_folder + "/" + "gray_" + img_name
         text_en = output_folder + "/" + "gray_"+img_name_base+".txt"
         text_translated = output_folder + "/" + "gray_translated_"+img_name_base+".txt"
 
+        # check if file is valid image
         img_check = img_to_gray(img_name, img_name_gray, output_folder)
-
+        # appending metadata
         my_summary = {"file_path" : os.path.abspath(img_name), "is_image" : None, "gray_file_path" : None, "text_in" : args["lang"], "is_text_captured" : None, "translated_in" : None, "is_translation_success" : None}
         
 
         if(img_check):
             print(f"\nProcessing image {img_name}")
+            # appending metadata
             my_summary["is_image"] = "yes"
             my_summary["gray_file_path"] = os.path.abspath(img_name_gray)
-            # Extract the text 
+
+            # Extracting text 
             text = pytesseract.image_to_string(img_name_gray, lang=args["lang"], config=args["psm"])
 
             if(text is not None and len(text.strip()) != 0):
@@ -76,7 +69,8 @@ def my_iterator(args):
                     outfile.close()
                 
                 print(f"Writing text {img_name}")
-
+                
+                # Text translation using google translator
                 if(args["to"] is not None):
                     my_summary["translated_in"] = args["to"]
                     if(google_translate(text, text_translated, args)):
@@ -86,10 +80,12 @@ def my_iterator(args):
                         my_summary["is_translation_success"] = "no"
                         print(f"No translation found {img_name}")
 
+            # No text found
             else:
                 my_summary["is_text_captured"] = "no"
                 print(f"No text captured {img_name}")
 
+        # Not a valid image
         else:
             my_summary["is_image"] = "no"
             print(f"\nNot a valid image {img_name} -- skipping")
@@ -101,7 +97,7 @@ def my_iterator(args):
     summary_df.to_csv(args["output"]+"/summary.csv")
     print('\nHurray!!! finally completed\n')
 
-
+# Creating main output folder
 def out_folder(args):
     path = args["output"] + "/" + "out"
     counter = 1
