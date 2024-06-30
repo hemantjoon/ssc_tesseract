@@ -34,17 +34,17 @@ options:
 
 ### Example
 <div style="display:flex; align-items: center;">
-<div>
+<div width="200">
 <img src="images/im1.jpg" alt="input_image" width="200"/>
 <p> Input Image </p>
 </div>
 &rarr;
-<div>
+<div width="200">
 <img src="out/im1/gray_im1.jpg" alt="gray_image" width="200"/>
 <p> Gray Image generated</p>
 </div>
 &rarr;
-<div>
+<div width="200"> 
 <img src="etc/screenshot.png" alt="text_captured" width="200"/>
 <p> Text captured using tesseract </p>
 </div>
